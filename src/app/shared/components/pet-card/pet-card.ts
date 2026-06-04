@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
 import { Dog } from '../../../core/models/dog.model';
 import { RouterLink } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   template: `
     <div class="card">
-      <img [src]="pet().image?.url || 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80'" [alt]="pet().name" loading="lazy">
+      <img [src]="imageUrl()" [alt]="pet().name" loading="lazy" (error)="handleError($event)">
       <div class="card-body">
         <h3>{{ pet().name }}</h3>
         <a [routerLink]="['/details', pet().id]" class="btn">Ver detalles</a>
@@ -25,4 +25,17 @@ import { RouterLink } from '@angular/router';
 })
 export class PetCardComponent {
   pet = input.required<Dog>(); 
+  
+  // Lógica inteligente para obtener la foto real de cada raza
+  imageUrl = computed(() => {
+    const p = this.pet();
+    if (p.image?.url) return p.image.url;
+    if (p.reference_image_id) return `https://cdn2.thedogapi.com/images/${p.reference_image_id}.jpg`;
+    return 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80';
+  });
+
+  // Si falla la carga del .jpg, intentamos con el respaldo
+  handleError(event: any) {
+    event.target.src = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80';
+  }
 }
