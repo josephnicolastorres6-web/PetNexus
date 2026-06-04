@@ -1,10 +1,36 @@
-<main class="container">
-  <h1 style="text-align: center; margin: 20px 0;">Explora las Razas de Perritos 🐶</h1>
-  <div class="grid-container">
-    @for (dog of dogs(); track dog.id) {
-      <app-pet-card [pet]="dog"></app-pet-card>
-    } @empty {
-      <p style="text-align: center;">Cargando perritos adorables...</p>
+<div class="home-page">
+  @if (heroDog(); as hero) {
+    <div class="hero-section">
+      <div class="hero-bg">
+        <img [src]="getHeroImage(hero)" [alt]="hero.name" (error)="handleHeroError($event, hero)">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1>{{ hero.name }}</h1>
+        <p class="hero-desc">{{ hero.temperament || 'Un compañero leal, valiente y lleno de energía esperando por ti. Descubre su historia y características en nuestra base de datos exclusiva.' }}</p>
+        <div class="hero-actions">
+          <a [routerLink]="['/details', hero.id]" class="btn-play">
+            <span class="icon">▶</span> Reproducir Perfil
+          </a>
+          <button class="btn-info">Más Información</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="results-section">
+    <h2 class="section-title">Novedades en PetNexus</h2>
+    @if (dogs().length > 0) {
+      <div class="grid-container">
+        @for (dog of dogs(); track dog.id) {
+          <app-pet-card [pet]="dog" />
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <h2>🎬 Preparando la alfombra roja...</h2>
+        <p>Cargando los mejores perritos de la temporada.</p>
+      </div>
     }
   </div>
-</main>
+</div>

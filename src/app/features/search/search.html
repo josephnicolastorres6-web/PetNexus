@@ -1,1 +1,26 @@
-<p>search works!</p>
+<main class="search-page">
+  <div class="header-section">
+    <h1>Encuentra a tu raza favorita 🔍</h1>
+    <div class="search-bar">
+      <input #searchInput type="text" placeholder="Ej. Husky, Pug, Akita..." (keyup.enter)="onSearch(searchInput.value)">
+      <button (click)="onSearch(searchInput.value)">Buscar</button>
+    </div>
+  </div>
+
+  @if (hasSearched()) {
+    <div class="results-section">
+      @if (searchResults().length > 0) {
+        <div class="grid-container">
+          @for (dog of searchResults(); track dog.id) {
+            <app-pet-card [pet]="dog"></app-pet-card>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <h2>¡Ups! No encontramos a ese perrito.</h2>
+          <p>Intenta buscando con otro nombre (en inglés), por ejemplo: "Retriever".</p>
+        </div>
+      }
+    </div>
+  }
+</main>
