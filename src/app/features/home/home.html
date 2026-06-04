@@ -1,0 +1,10 @@
+<main class="container">
+  <h1 style="text-align: center; margin: 20px 0;">Explora las Razas de Perritos 🐶</h1>
+  <div class="grid-container">
+    @for (dog of dogs(); track dog.id) {
+      <app-pet-card [pet]="dog"></app-pet-card>
+    } @empty {
+      <p style="text-align: center;">Cargando perritos adorables...</p>
+    }
+  </div>
+</main>

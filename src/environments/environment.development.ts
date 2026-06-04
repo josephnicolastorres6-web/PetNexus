@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   apiUrl: 'https://api.thedogapi.com/v1',
-  apiKey: 'TU_API_KEY_AQUI' 
+  apiKey: 'live_8EO2WmR3eTBX7sHZ9VvSPW5eYt9IdHopktVrXrtTh9CGQQJb3hEJpveW6h5koPgV'
 };

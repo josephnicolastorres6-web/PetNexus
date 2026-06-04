@@ -1,0 +1,11 @@
+<div class="card">
+  @if (pet().image?.url) {
+    <img [src]="pet().image?.url" [alt]="pet().name" class="pet-image">
+  }
+  <div class="card-content">
+    <h3>{{ pet().name }}</h3>
+    @if (pet().temperament) {
+      <p>{{ pet().temperament }}</p>
+    }
+  </div>
+</div>

@@ -1,3 +1,15 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './features/home/home';
+import { Search } from './features/search/search';
+import { Details } from './features/details/details';
+import { Favorites } from './features/favorites/favorites';
+import { NotFound } from './core/components/not-found/not-found';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'search', component: Search },
+  { path: 'details/:id', component: Details },
+  { path: 'favorites', component: Favorites },
+  { path: '**', component: NotFound }
+];
