@@ -8,7 +8,7 @@ import { FooterComponent } from './core/components/footer/footer';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrls: ['./app.css'],
 })
 export class App {
   title = 'PetNexus';

@@ -1,0 +1,60 @@
+<div class="details-container">
+  <!-- Esqueleto de carga (estilo MovieNexus) -->
+  <div *ngIf="isLoading()" class="skeleton-container">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-title"></div>
+      <div class="skeleton-text"></div>
+      <div class="skeleton-text"></div>
+    </div>
+  </div>
+
+  <!-- Contenido Real -->
+  <div *ngIf="!isLoading() && dog()" class="content-wrapper fade-in">
+    <a routerLink="/" class="back-btn">← Volver al Inicio</a>
+    
+    <div class="hero-section">
+      <div class="image-wrapper">
+        <img [src]="getImageUrl($any(dog()))"
+             [alt]="dog()?.name"
+             (error)="handleError($event, $any(dog()?.name))">
+      </div>
+      
+      <div class="info-wrapper">
+        <h1 class="dog-name">{{ dog()?.name }}</h1>
+        <span class="breed-group" *ngIf="dog()?.breed_group">{{ dog()?.breed_group }}</span>
+        
+        <div class="stats-grid">
+          <div class="stat-card" *ngIf="dog()?.life_span">
+            <span class="stat-label">Esperanza de Vida</span>
+            <span class="stat-value">{{ dog()?.life_span }}</span>
+          </div>
+          <div class="stat-card" *ngIf="dog()?.weight?.metric">
+            <span class="stat-label">Peso Promedio</span>
+            <span class="stat-value">{{ dog()?.weight?.metric }} kg</span>
+          </div>
+          <div class="stat-card" *ngIf="dog()?.height?.metric">
+            <span class="stat-label">Altura Promedio</span>
+            <span class="stat-value">{{ dog()?.height?.metric }} cm</span>
+          </div>
+          <div class="stat-card" *ngIf="dog()?.origin">
+            <span class="stat-label">Origen</span>
+            <span class="stat-value">{{ dog()?.origin }}</span>
+          </div>
+        </div>
+        
+        <div class="temperament-section" *ngIf="dog()?.temperament">
+          <h3>Temperamento</h3>
+          <p>{{ dog()?.temperament }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Estado de Error -->
+  <div *ngIf="!isLoading() && !dog()" class="error-state">
+    <h2>¡Guau! Algo salió mal.</h2>
+    <p>No pudimos encontrar la información de este perrito.</p>
+    <a routerLink="/" class="btn">Volver al Inicio</a>
+  </div>
+</div>

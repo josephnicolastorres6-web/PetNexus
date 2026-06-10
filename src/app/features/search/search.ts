@@ -8,7 +8,7 @@ import { PetCardComponent } from '../../shared/components/pet-card/pet-card';
   standalone: true,
   imports: [PetCardComponent],
   templateUrl: './search.html',
-  styleUrls: ['./search.css']
+  styleUrls: ['./search.css'],
 })
 export class SearchComponent {
   private apiService = inject(ApiService);
@@ -22,7 +22,7 @@ export class SearchComponent {
         this.searchResults.set(data);
         this.hasSearched.set(true);
       },
-      error: (err) => console.error('Error:', err)
+      error: (err) => console.error('Error:', err),
     });
   }
 }

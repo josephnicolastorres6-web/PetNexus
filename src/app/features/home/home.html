@@ -2,12 +2,17 @@
   @if (heroDog(); as hero) {
     <div class="hero-section">
       <div class="hero-bg">
-        <img [src]="getHeroImage(hero)" [alt]="hero.name" (error)="handleHeroError($event, hero)">
+        <img [src]="getHeroImage(hero)" [alt]="hero.name" (error)="handleHeroError($event, hero)" />
         <div class="hero-overlay"></div>
       </div>
       <div class="hero-content">
         <h1>{{ hero.name }}</h1>
-        <p class="hero-desc">{{ hero.temperament || 'Un compañero leal, valiente y lleno de energía esperando por ti. Descubre su historia y características en nuestra base de datos exclusiva.' }}</p>
+        <p class="hero-desc">
+          {{
+            hero.temperament ||
+              'Un compañero leal, valiente y lleno de energía esperando por ti. Descubre su historia y características en nuestra base de datos exclusiva.'
+          }}
+        </p>
         <div class="hero-actions">
           <a [routerLink]="['/details', hero.id]" class="btn-play">
             <span class="icon">▶</span> Reproducir Perfil
@@ -20,17 +25,25 @@
 
   <div class="results-section">
     <h2 class="section-title">Novedades en PetNexus</h2>
-    @if (dogs().length > 0) {
+    @if (isLoading()) {
       <div class="grid-container">
-        @for (dog of dogs(); track dog.id) {
-          <app-pet-card [pet]="dog" />
+        @for (i of [1,2,3,4,5,6,7,8]; track i) {
+          <div class="skeleton-card"></div>
         }
       </div>
     } @else {
-      <div class="empty-state">
-        <h2>🎬 Preparando la alfombra roja...</h2>
-        <p>Cargando los mejores perritos de la temporada.</p>
-      </div>
+      @if (dogs().length > 0) {
+        <div class="grid-container">
+          @for (dog of dogs(); track dog.id) {
+            <app-pet-card [pet]="dog" />
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <h2>🎬 Preparando la alfombra roja...</h2>
+          <p>Cargando los mejores perritos de la temporada.</p>
+        </div>
+      }
     }
   </div>
 </div>

@@ -2,7 +2,12 @@
   <div class="header-section">
     <h1>Encuentra a tu raza favorita 🔍</h1>
     <div class="search-bar">
-      <input #searchInput type="text" placeholder="Ej. Husky, Pug, Akita..." (keyup.enter)="onSearch(searchInput.value)">
+      <input
+        #searchInput
+        type="text"
+        placeholder="Ej. Husky, Pug, Akita..."
+        (keyup.enter)="onSearch(searchInput.value)"
+      />
       <button (click)="onSearch(searchInput.value)">Buscar</button>
     </div>
   </div>
