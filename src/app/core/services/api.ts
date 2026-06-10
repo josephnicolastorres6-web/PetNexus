@@ -9,9 +9,11 @@ export class ApiService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  getDogs(): Observable<Dog[]> {
-    return this.http.get<Dog[]>(`${this.apiUrl}/breeds?limit=20`).pipe(
+  getDogs(page: number = 0): Observable<Dog[]> {
+    // Usamos el parámetro 'page' de The Dog API y traemos lotes de 12
+    return this.http.get<Dog[]>(`${this.apiUrl}/breeds?limit=12&page=${page}`).pipe(
       switchMap(dogs => {
+        if (!dogs || dogs.length === 0) return of([]);
         const requests = dogs.map(dog => {
           if (dog.image?.url || dog.reference_image_id) return of(dog);
           
